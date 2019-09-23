@@ -13,16 +13,16 @@ namespace rummikub_solver
 
   public class Tile
   {
-    private int number1;
+    private int number;
 
     public int Getnumber()
     {
-      return number1;
+      return number;
     }
 
     public void Setnumber(int value)
     {
-      number1 = value;
+      number = value;
     }
 
     public COLOR color
