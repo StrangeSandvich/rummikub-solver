@@ -31,6 +31,18 @@ namespace rummikub_solver
     private Solution soluWithTileMismatchExtra;
     private Solution soluWithTileMismatchMissing;
 
+    Tile tileY1;
+    Tile tileY2;
+    Tile tileY3;
+    Tile tileY3Double;
+    Tile tileY4;
+    Tile tileY6;
+    Tile tileG6;
+    Tile tileR6; 
+    Tile tileB11;
+    Tile tileB12;
+    Tile tileB13;
+
     /// <summary>
     /// Initializes solution test objects
     /// </summary>
@@ -38,17 +50,17 @@ namespace rummikub_solver
     [SetUp]
     protected void SetUp()
     {
-      Tile tileY1 = new Tile(1, COLOR.Yellow);
-      Tile tileY2 = new Tile(2, COLOR.Yellow);
-      Tile tileY3 = new Tile(3, COLOR.Yellow);
-      Tile tileY3Double = new Tile(3, COLOR.Yellow);
-      Tile tileY4 = new Tile(4, COLOR.Yellow);
-      Tile tileY6 = new Tile(6, COLOR.Yellow);
-      Tile tileG6 = new Tile(6, COLOR.Green);
-      Tile tileR6 = new Tile(6, COLOR.Red);
-      Tile tileB11 = new Tile(11, COLOR.Blue);
-      Tile tileB12 = new Tile(12, COLOR.Blue);
-      Tile tileB13 = new Tile(13, COLOR.Blue);
+      tileY1 = new Tile(1, COLOR.Yellow);
+      tileY2 = new Tile(2, COLOR.Yellow);
+      tileY3 = new Tile(3, COLOR.Yellow);
+      tileY3Double = new Tile(3, COLOR.Yellow);
+      tileY4 = new Tile(4, COLOR.Yellow);
+      tileY6 = new Tile(6, COLOR.Yellow);
+      tileG6 = new Tile(6, COLOR.Green);
+      tileR6 = new Tile(6, COLOR.Red);
+      tileB11 = new Tile(11, COLOR.Blue);
+      tileB12 = new Tile(12, COLOR.Blue);
+      tileB13 = new Tile(13, COLOR.Blue);
 
       //Valid connections
       connY1toY4 = new Connection(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4 }), false);
@@ -62,55 +74,55 @@ namespace rummikub_solver
 
       //Valid Solutions
       soluY1toY4 = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4 }));
-      soluY1toY4.unusedTiles.Remove(tileY1);
-      soluY1toY4.unusedTiles.Remove(tileY2);
-      soluY1toY4.unusedTiles.Remove(tileY3);
-      soluY1toY4.unusedTiles.Remove(tileY4);
+      soluY1toY4.unprocessedTiles.Remove(tileY1);
+      soluY1toY4.unprocessedTiles.Remove(tileY2);
+      soluY1toY4.unprocessedTiles.Remove(tileY3);
+      soluY1toY4.unprocessedTiles.Remove(tileY4);
       soluY1toY4.connections.Add(connY1toY4);
 
-      soluWith3Conn = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6, tileG6, tileR6, tileB11, tileB12, tileB13}));
-      soluWith3Conn.unusedTiles.Remove(tileY1);
-      soluWith3Conn.unusedTiles.Remove(tileY2);
-      soluWith3Conn.unusedTiles.Remove(tileY3);
-      soluWith3Conn.unusedTiles.Remove(tileY4);
+      soluWith3Conn = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6, tileG6, tileR6, tileB11, tileB12, tileB13 }));
+      soluWith3Conn.unprocessedTiles.Remove(tileY1);
+      soluWith3Conn.unprocessedTiles.Remove(tileY2);
+      soluWith3Conn.unprocessedTiles.Remove(tileY3);
+      soluWith3Conn.unprocessedTiles.Remove(tileY4);
       soluWith3Conn.connections.Add(connY1toY4);
-      soluWith3Conn.unusedTiles.Remove(tileY6);
-      soluWith3Conn.unusedTiles.Remove(tileG6);
-      soluWith3Conn.unusedTiles.Remove(tileR6);
+      soluWith3Conn.unprocessedTiles.Remove(tileY6);
+      soluWith3Conn.unprocessedTiles.Remove(tileG6);
+      soluWith3Conn.unprocessedTiles.Remove(tileR6);
       soluWith3Conn.connections.Add(connY6G6R6);
-      soluWith3Conn.unusedTiles.Remove(tileB11);
-      soluWith3Conn.unusedTiles.Remove(tileB12);
-      soluWith3Conn.unusedTiles.Remove(tileB13);
+      soluWith3Conn.unprocessedTiles.Remove(tileB11);
+      soluWith3Conn.unprocessedTiles.Remove(tileB12);
+      soluWith3Conn.unprocessedTiles.Remove(tileB13);
       soluWith3Conn.connections.Add(connB11toB13);
 
       //Invalid solutions
-      soluWithUnusedTile = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6}));
-      soluWithUnusedTile.unusedTiles.Remove(tileY1);
-      soluWithUnusedTile.unusedTiles.Remove(tileY2);
-      soluWithUnusedTile.unusedTiles.Remove(tileY3);
-      soluWithUnusedTile.unusedTiles.Remove(tileY4);
+      soluWithUnusedTile = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6 }));
+      soluWithUnusedTile.unprocessedTiles.Remove(tileY1);
+      soluWithUnusedTile.unprocessedTiles.Remove(tileY2);
+      soluWithUnusedTile.unprocessedTiles.Remove(tileY3);
+      soluWithUnusedTile.unprocessedTiles.Remove(tileY4);
       soluWithUnusedTile.connections.Add(connY1toY4);
 
-      soluWithInvalidConn = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6}));
-      soluWithInvalidConn.unusedTiles.Remove(tileY1);
-      soluWithInvalidConn.unusedTiles.Remove(tileY2);
-      soluWithInvalidConn.unusedTiles.Remove(tileY3);
-      soluWithInvalidConn.unusedTiles.Remove(tileY4);
-      soluWithInvalidConn.unusedTiles.Remove(tileY6);
+      soluWithInvalidConn = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6 }));
+      soluWithInvalidConn.unprocessedTiles.Remove(tileY1);
+      soluWithInvalidConn.unprocessedTiles.Remove(tileY2);
+      soluWithInvalidConn.unprocessedTiles.Remove(tileY3);
+      soluWithInvalidConn.unprocessedTiles.Remove(tileY4);
+      soluWithInvalidConn.unprocessedTiles.Remove(tileY6);
       soluWithInvalidConn.connections.Add(connMissingY5);
 
       soluWithTileMismatchExtra = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3, tileY4, tileY6 }));
-      soluWithTileMismatchExtra.unusedTiles.Remove(tileY1);
-      soluWithTileMismatchExtra.unusedTiles.Remove(tileY2);
-      soluWithTileMismatchExtra.unusedTiles.Remove(tileY3);
-      soluWithTileMismatchExtra.unusedTiles.Remove(tileY4);
-      soluWithTileMismatchExtra.unusedTiles.Remove(tileY6);
+      soluWithTileMismatchExtra.unprocessedTiles.Remove(tileY1);
+      soluWithTileMismatchExtra.unprocessedTiles.Remove(tileY2);
+      soluWithTileMismatchExtra.unprocessedTiles.Remove(tileY3);
+      soluWithTileMismatchExtra.unprocessedTiles.Remove(tileY4);
+      soluWithTileMismatchExtra.unprocessedTiles.Remove(tileY6);
       soluWithTileMismatchExtra.connections.Add(connY1toY4);
 
       soluWithTileMismatchMissing = new Solution(new List<Tile>(new Tile[] { tileY1, tileY2, tileY3 }));
-      soluWithTileMismatchMissing.unusedTiles.Remove(tileY1);
-      soluWithTileMismatchMissing.unusedTiles.Remove(tileY2);
-      soluWithTileMismatchMissing.unusedTiles.Remove(tileY3);
+      soluWithTileMismatchMissing.unprocessedTiles.Remove(tileY1);
+      soluWithTileMismatchMissing.unprocessedTiles.Remove(tileY2);
+      soluWithTileMismatchMissing.unprocessedTiles.Remove(tileY3);
       soluWithTileMismatchMissing.connections.Add(connY1toY4);
     }
 
@@ -124,7 +136,7 @@ namespace rummikub_solver
       Assert.That(soluY1toY4.Solved(), Is.True);
       Assert.That(soluWith3Conn.Solved(), Is.True);
     }
-    
+
     [Test]
     public void TestUnusedTileSolution()
     {
@@ -142,6 +154,23 @@ namespace rummikub_solver
     {
       Assert.That(soluWithTileMismatchExtra.Solved(), Is.False);
       Assert.That(soluWithTileMismatchMissing.Solved(), Is.False);
+    }
+
+    [Test]
+    public void TestShatter()
+    {
+      Assert.That(soluY1toY4.unprocessedTiles.Contains(tileY1), Is.False);
+      soluY1toY4.Shatter(connY1toY4);
+      Assert.That(soluY1toY4.unusedTiles.Contains(tileY1), Is.True);
+      Assert.That(soluY1toY4.unprocessedTiles.Contains(tileY1), Is.False);
+      Assert.That(soluY1toY4.unprocessedTiles.Contains(tileY2), Is.True);
+      Assert.That(soluY1toY4.unprocessedTiles.Contains(tileY3), Is.True);
+      Assert.That(soluY1toY4.unprocessedTiles.Contains(tileY4), Is.True);
+      Assert.That(soluY1toY4.unusedTiles.Contains(tileY2), Is.False);
+      Assert.That(soluY1toY4.unusedTiles.Contains(tileY3), Is.False);
+      Assert.That(soluY1toY4.unusedTiles.Contains(tileY4), Is.False);
+
+      Assert.That(soluY1toY4.connections.Count, Is.Zero);
     }
   }
 }

@@ -14,6 +14,27 @@ namespace rummikub_solver{
       validate();
     }
 
+    public bool containsTwin(Tile twin){
+      foreach (Tile tile in tiles)
+      {
+          if(tile.color == twin.color && tile.number == twin.number){
+            return true;
+          }
+      }
+      return false;
+    }
+
+    public override string ToString(){
+      string result = "[";
+      tiles.Sort();
+      foreach (Tile tile in tiles)
+      {
+        result += tile.ToString();
+        result += " ";
+      }
+      return result + "]";
+    }
+
     public bool validate(){
       valid = nonMutateValidate();
       return valid;
@@ -26,9 +47,9 @@ namespace rummikub_solver{
       }
       if(connectionByNumber){
         //If not all tiles share the same number, connection is not valid
-        int connectionNumber = tiles[0].Getnumber();
+        int connectionNumber = tiles[0].number;
         foreach(Tile tile in tiles.GetRange(1, tiles.Count-1)){
-          if(tile.Getnumber() != connectionNumber){
+          if(tile.number != connectionNumber){
             return false;
           }
         }
@@ -55,17 +76,12 @@ namespace rummikub_solver{
           }
         }
         
-        //Create list of just the numbers
-        List<int> numberlist = new List<int>();
-        foreach(Tile tile in tiles){
-          numberlist.Add(tile.Getnumber());
-        }
 
+        tiles.Sort();
         //Check that all numbers are in a row. This also ensures no duplicates. 
-        numberlist.Sort();
-        for (int i = 0; i < numberlist.Count-1; i++)
+        for (int i = 0; i < tiles.Count-1; i++)
         {
-            if(numberlist[i] != numberlist[i+1]-1){
+            if(tiles[i].number != tiles[i+1].number-1){
               return false;
             }
         }
